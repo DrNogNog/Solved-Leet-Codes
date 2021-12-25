@@ -1,0 +1,76 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int solve(int k,vector<vector<int>>& A){
+        int n = A.size();
+        int m = A[0].size();
+        vector<vector<int>> visited(n, vector<int>(m, 0));
+        int countHouses = 0;
+        for(int i = 0; i < n; i = i + 1){
+                for(int j = 0; j < m; j = j + 1){
+                        if(A[i][j] == 0)
+                                continue;
+                        countHouses = countHouses + 1;
+                        for(int l = 0; l <= k; l = l + 1){
+                                int up = i - l;
+                                if(up >= 0){
+                                        for(int h = 0; h <= k - l; h = h + 1){
+                                                int left = j - h;
+                                                if(left >= 0)
+                                                        visited[up][left] = visited[up][left] + 1;
+                                                int right = j + h;
+                                                if(right < m && h != 0)
+                                                        visited[up][right] = visited[up][right] + 1;
+                                        }
+                                }
+                                int down = i + l;
+                                if(down < n && l != 0){
+                                        for(int h = 0; h <= k - l; h = h + 1){
+                                                int left = j - h;
+                                                if(left >= 0)
+                                                        visited[down][left] = visited[down][left] + 1;
+                                                int right = j + h;
+                                                if(right < m && h != 0)
+                                                        visited[down][right] = visited[down][right] + 1;
+                                        }
+                                }
+                        }
+                }
+        }
+        int ans = 0;
+        for(int i = 0; i < n; i = i + 1){
+                for(int j = 0; j < m; j = j + 1){
+                        if(A[i][j] == 1)
+                                continue;
+                        if(visited[i][j] == countHouses)
+                                ans = ans + 1;
+                }
+        }
+        return ans;
+}
+int32_t main(){
+        int t;
+        cout << "Enter the number of test cases: ";
+        cin>>t;
+        int count = 1;
+        while(t--){
+                cout << "Enter details for test case #" << count << "\n";
+                int n,m,k;
+                cout<<"Enter number of rows of matrix A: ";
+                cin>>n;
+                cout<<"Enter number of columns of matrix A: ";
+                cin>>m;
+                cout<<"Enter the contents of matrix row wise\n";
+                vector<vector<int>> A(n,vector<int>(m));
+                for(int i=0;i<n;i++){
+                        for(int j=0;j<m;j++){
+                                cin>>A[i][j];
+                        }
+                }
+                cout<<"Enter the value of K: ";
+                cin>>k;
+                cout << "Answer for test case #" << count << ": " << solve(k, A) << "\n\n";
+                count = count + 1;      
+        }
+        return 0;
+}

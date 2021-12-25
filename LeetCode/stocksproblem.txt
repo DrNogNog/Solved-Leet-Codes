@@ -1,0 +1,27 @@
+def stockPairs(num, stocksProfit, target):
+    count = 0  
+    for i in range(0, num):
+        for j in range(i + 1, num):
+            if stocksProfit[i] + stocksProfit[j] == target:
+                count += 1
+    return count
+
+def stockPairs(num, stocksProfit, target):
+    count = 0
+    stocksProfit = sorted(stocksProfit)
+    x = 0
+    y = num - 1
+    while (x < y):
+        if (stocksProfit[x] + stocksProfit[y] == target):
+            while (x < y and stocksProfit[x] == stocksProfit[x + 1]):
+                x += 1
+            while (x < y and stocksProfit[y] == stocksProfit[y - 1]):
+                y -= 1
+            count += 1
+            x += 1
+            y -= 1
+        elif (stocksProfit[x] + stocksProfit[y] < target):
+            x += 1
+        else:
+            y -= 1
+    return count

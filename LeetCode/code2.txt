@@ -1,0 +1,51 @@
+# you can write to stdout for debugging purposes, e.g.
+# print("this is a debug message")
+
+def solution(K, A):
+    # write your code in Python 3.6
+    totalhouses = 0
+    
+    constant = 5.0
+    
+    answer = 0
+    
+    for row in range(len(A)):
+        
+        for col in range(len(A[0])):
+            
+            if (A[row][col] == 1):
+                
+                totalhouses += 1
+                
+                for x in range(K):
+                    
+                    if ((row-(x+1)) >= 0):
+                        
+                         A[row-(x+1)][col] += constant
+                         
+                    if ((row+(x+1)) < len(A)):
+                        
+                         A[row+(x+1)][col] += constant
+                         
+                    if ((col-(x+1)) >= 0):
+                        
+                         A[row][col-(x+1)] += constant
+                         
+                    if ((col+(x+1)) < len(A[row])):
+                        
+                         A[row][col+(x+1)] += constant
+                         
+    for row in range(len(A)):
+        
+        for col in range(len(A[0])):
+            
+            print(A[row][col], "before")
+            
+            A[row][col] = (A[row][col]) / totalhouses
+            
+            print(A[row][col])
+            
+            if (A[row][col] == constant):
+                answer += 1
+                         
+    return answer

@@ -1,0 +1,20 @@
+def isSubTree(root1, root2):
+	if root2 = None:
+		return True
+	if root1 = None:
+		return False
+	
+	if (SameTree(root1, root2):
+		return True
+	
+	return isSubTree(root1.left, root2) or isSubTree(root1.right, root2)
+
+def SameTree(root1, root2): 
+
+    if root1 is None and root2 is None: 
+        return True
+    if root1 is None or root2 is None: 
+        return False
+
+    return (root1.data == root2.data and SameTree(root1.left , root2.left)and SameTree(root1.right, root2.right))
+	
